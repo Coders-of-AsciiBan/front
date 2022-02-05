@@ -5,3 +5,17 @@
 .button-primary {
   @apply bg-mnsPrimary text-gray-900 py-2 px-4 rounded-lg font-bold text-2xl;
 }
+
+/* .MuiLinearProgress-root {
+  width: 130px;
+} */
+
+.MuiLinearProgress-colorPrimary {
+  background-color: gray;
+  height: 30px;
+  border-radius: 20px;
+}
+
+.MuiLinearProgress-barColorPrimary {
+  background-color: #005640;
+}

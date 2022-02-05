@@ -4,7 +4,8 @@ module.exports = {
     extend: {
       colors: {
         mnsPrimary: '#bdd755',
-        msnSecondary: '#005640',
+        mnsSecondary: '#005640',
+        grayBase: '#BAC4C5',
       },
     },
   },

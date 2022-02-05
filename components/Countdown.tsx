@@ -1,19 +1,26 @@
+import { LinearProgress } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useGame } from '../context/game';
 
 const Countdown = ({}) => {
+  const { gameState } = useGame();
   const [seconds, setSeconds] = useState(10);
   const [isActive, setIsActive] = useState(true);
 
+  useEffect(() => {}, []);
   function toggle() {
     setIsActive(!isActive);
   }
 
   function reset() {
-    setSeconds(0);
-    setIsActive(false);
+    setSeconds(10);
   }
+
+  useEffect(() => {
+    reset();
+  }, [gameState]);
 
   useEffect(() => {
     let interval = setInterval(() => {});
@@ -34,9 +41,27 @@ const Countdown = ({}) => {
   }, [seconds]);
 
   return (
-    <div className='semicircle' style={{ width: 150, height: 150 }}>
-      <CircularProgressbar minValue={0} maxValue={10} value={seconds} text={`${seconds}`} />
-    </div>
+    <>
+      <LinearProgress variant='determinate' value={((10 - seconds) * 100) / 10} />
+      <div className='flex justify-center w-full'>
+        <div className='semicircle font-extrabold' style={{ width: 70, height: 70 }}>
+          <CircularProgressbar
+            styles={buildStyles({
+              // Colors
+              pathColor: '#BDD755',
+              textColor: '#000',
+              trailColor: '#E8FFE9',
+              backgroundColor: '#E8FFE9',
+              textSize: '34px',
+            })}
+            minValue={0}
+            maxValue={10}
+            value={seconds}
+            text={`${seconds}`}
+          />
+        </div>
+      </div>
+    </>
   );
 };
 
