@@ -34,7 +34,7 @@ const Countdown = ({}) => {
   }, [seconds]);
 
   return (
-    <div className='semicircle'>
+    <div className='semicircle' style={{ width: 150, height: 150 }}>
       <CircularProgressbar minValue={0} maxValue={10} value={seconds} text={`${seconds}`} />
     </div>
   );

@@ -21,9 +21,7 @@ const Home: NextPage = () => {
             </span>
           </div>
           <Link href='/play'>
-            <div className='bg-mnsPrimary text-gray-900 py-2 px-4 rounded-lg font-bold text-2xl'>
-              Start
-            </div>
+            <div className='button-primary'>Start</div>
           </Link>
         </div>
       </div>
