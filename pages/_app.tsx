@@ -70,7 +70,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <GameContext.Provider value={{ gameState, setGameState, points, setPoints }}>
-      <Component {...pageProps} />
+      <div className='font-sahitya'>
+        <Component {...pageProps} />
+      </div>
     </GameContext.Provider>
   );
 }

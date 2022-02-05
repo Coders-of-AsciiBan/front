@@ -30,6 +30,7 @@ const PlayPage = () => {
   const { gameState, setGameState, points, setPoints } = useGame();
   const [product, setProduct] = useState<GuessData>(null);
   const [start, setStart] = useState(false);
+  const [level, setLevel] = useState(1);
   const [endGame, setEndGame] = useState(false);
   const router = useRouter();
 
@@ -52,6 +53,10 @@ const PlayPage = () => {
   }, [router, endGame]);
 
   useEffect(() => {
+    setLevel(Object.keys(points).length);
+  }, [points]);
+
+  useEffect(() => {
     if (product) {
       if (product.guessed) {
         console.log('guess', product.guess, product.price);
@@ -59,8 +64,8 @@ const PlayPage = () => {
         console.log('check', pc);
         setPoints({ ...points, [product.id]: pc });
         const products = gameState.filter((el: Product) => el.id !== product?.id ?? null);
-        setGameState([...products, product]);
         setGuessedPrice({ value: '0' });
+        setGameState([...products, product]);
       }
     }
   }, [product, gameState, setGameState]);
@@ -74,11 +79,19 @@ const PlayPage = () => {
       });
     }
   };
+
+  useEffect(() => {
+    console.log('gp', guessedPrice);
+  }, [guessedPrice]);
+
+  const timeOut = () => {
+    console.log('timesup');
+  };
   return (
-    <div className='flex flex-col w-screen h-screen justify-start items-center p-4'>
-      <Navbar />
+    <div className='flex flex-col w-screen h-screen justify-start items-center p-2 overflow-hidden'>
+      <Navbar timeOut={timeOut} level={level} />
       <div className='w-full px-2 my-3'>
-        <div className='bg-gray-300  text-center font-extrabold w-full py-2 rounded-lg shadow-gray-900 shadow-md'>
+        <div className='bg-gray-300  text-center font-bold text-2xl w-full py-2 rounded-lg shadow-gray-900 shadow-md'>
           {product?.name ?? ''}
         </div>
       </div>
@@ -97,29 +110,35 @@ const PlayPage = () => {
         <span className='my-4 font-extrabold text-2xl'>Guess The Price</span>
         <div className='flex justify-center items-center'>
           <NumberFormat
-            value={guessedPrice.value}
+            value={guessedPrice.value === '0' ? '' : guessedPrice.value}
             onValueChange={(values) => {
               const { formattedValue, value } = values;
               setGuessedPrice({ value: formattedValue });
             }}
-            className='w-32 py-3 outline-none text-mnsSecondary rounded-2xl text-center font-extrabold text-xl'
+            className='w-32 py-3 outline-none text-mnsSecondary rounded-2xl text-center font-bold text-4xl'
             thousandSeparator={true}
             prefix={'£'}
           />
         </div>
+
         <button
+          disabled={guessedPrice.value === '0' || guessedPrice.value === ''}
           onClick={() => sendGuessedPrice()}
-          className='button-primary my-4 font-extrabold shadow-mnsSecondary shadow-md'
+          className={`${
+            guessedPrice.value === '0' || guessedPrice.value === ''
+              ? 'button-primary-disabled'
+              : 'button-primary shadow-mnsSecondary shadow-md'
+          } my-4 font-extrabold `}
         >
           Next
         </button>
       </div>
-      <span>{product?.price ?? 0}</span>
+      {/* <span>{product?.price ?? 0}</span> */}
     </div>
   );
 };
 
-const Navbar = () => {
+const Navbar = ({ timeOut, level }) => {
   const { points } = useGame();
   const [total, setTotal] = useState(0);
   useEffect(() => {
@@ -155,7 +174,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <Countdown />
+      <Countdown timeOut={timeOut} level={level} />
     </div>
   );
 };
