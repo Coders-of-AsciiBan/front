@@ -144,15 +144,8 @@ const PlayPage = () => {
 };
 
 const Navbar = ({ timeOut, level }) => {
-  const { points } = useGame();
-  const [total, setTotal] = useState(0);
-  useEffect(() => {
-    let total = 0;
-    Object.keys(points).forEach((el) => {
-      total = total + points[el];
-    });
-    setTotal(total);
-  }, [points]);
+  const { total } = useGame();
+
   return (
     <div className='my-4 w-full grid grid-cols-3 grid-rows-1 items-center gap-4'>
       <div className='flex justify-center w-full h-full'>

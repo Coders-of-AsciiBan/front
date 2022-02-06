@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { GameContext } from '../context/game';
 import '../styles/globals.css';
 import { GuessData, Product } from '../types';
+import axios from 'axios';
 
 const data = [
   {
@@ -55,22 +56,39 @@ const data = [
 function MyApp({ Component, pageProps }: AppProps) {
   const [gameState, setGameState] = useState<GuessData[]>([]);
   const [points, setPoints] = useState({});
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
+    const fetchGames = async () => {
+      const game = await axios({
+        method: 'GET',
+        url: 'https://bumblebee-hacktheburgh.herokuapp.com/game',
+      });
+      console.log(game);
+      setGameState(
+        game.data.body.map((dt: Product) => {
+          return { ...dt, guessed: false, guess: 0 };
+        })
+      );
+    };
     console.log('setting initial values');
-    setGameState(
-      data.map((dt: Product) => {
-        return { ...dt, guessed: false, guess: 0 };
-      })
-    );
+    fetchGames();
   }, []);
+
+  useEffect(() => {
+    let total = 0;
+    Object.keys(points).forEach((el) => {
+      total = total + points[el];
+    });
+    setTotal(total);
+  }, [points]);
 
   useEffect(() => {
     console.log('state', gameState);
   }, [gameState]);
 
   return (
-    <GameContext.Provider value={{ gameState, setGameState, points, setPoints }}>
+    <GameContext.Provider value={{ gameState, setGameState, points, setPoints, total }}>
       <div className='font-sahitya'>
         <Component {...pageProps} />
       </div>
