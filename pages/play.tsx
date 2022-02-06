@@ -14,11 +14,18 @@ function between(value, first, last) {
 }
 
 function pointCheck(reference, guess) {
+  // if (reference === guess) {
+  //   return 100;
+  // } else if (between(guess, reference * 0.95, reference * 1.05)) {
+  //   return 60;
+  // } else if (between(guess, reference * 0.9, reference * 1.1)) {
+  //   return 30;
+  // }
   if (reference === guess) {
     return 100;
-  } else if (between(guess, reference * 0.95, reference * 1.05)) {
+  } else if (between(guess, reference - 3, reference + 3)) {
     return 60;
-  } else if (between(guess, reference * 0.9, reference * 1.1)) {
+  } else if (between(guess, reference - 6, reference + 6)) {
     return 30;
   }
 
