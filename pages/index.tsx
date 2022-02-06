@@ -12,7 +12,7 @@ const Home: NextPage = () => {
           </div>
           <div className='my-3 flex items-center justify-center'>
             <Image src='/media/shopping-bags.png' alt='shopping bags' width={60} height={42} />
-            <span className='mx-2 font-bold text-white text-3xl'>Guess The Price</span>
+            <span className='mx-2 font-bold text-white text-3xl'>Price It Right</span>
             <Image src='/media/goodies.png' alt='shopping bags' width={60} height={42} />
           </div>
           <div className='bg-gray-600 bg-opacity-90 p-4 text-center rounded-lg my-6'>
