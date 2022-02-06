@@ -33,7 +33,7 @@ label {
 }
 
 .input {
-  @apply p-2 rounded-lg my-2;
+  @apply p-2 rounded-lg my-2 w-56;
 }
 
 .test {

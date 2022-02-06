@@ -214,6 +214,7 @@ const UserForm = ({ setOpenDialog }) => {
             <Image src='/media/gift.png' alt='gift' height={70} width={70} />
           </div>
           <span>Enter your details to see yout result</span>
+
           <label>
             <span>Username</span>
             <input required className='input' name='username' placeholder='Your Name' type='text' />
@@ -228,6 +229,7 @@ const UserForm = ({ setOpenDialog }) => {
               type='text'
             />
           </label>
+
           <button type='submit' className='button-primary shadow-mnsSecondary shadow-md my-4'>
             Done
           </button>
