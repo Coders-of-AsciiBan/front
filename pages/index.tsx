@@ -8,7 +8,7 @@ const Home: NextPage = () => {
       <div className='relative z-30 p-5 text-2xl text-white bg-gray-900 h-full bg-opacity-50'>
         <div className='flex flex-col items-center justify-center h-full'>
           <div className='my-2'>
-            <Image src='/media/logo_w.png' alt='m&s Logo' width={300} height={179} />
+            <Image src='/media/logo_w.png' alt='m&s Logo' width={100} height={59} />
           </div>
           <div className='my-3 flex items-center justify-center'>
             <Image src='/media/shopping-bags.png' alt='shopping bags' width={60} height={42} />
@@ -16,10 +16,12 @@ const Home: NextPage = () => {
             <Image src='/media/goodies.png' alt='shopping bags' width={60} height={42} />
           </div>
           <div className='bg-gray-600 bg-opacity-90 p-4 text-center rounded-lg my-6'>
-            <span className='opacity-100 text-white'>
-              Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit
-              officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud
-              amet.
+            <span className='opacity-100 text-white text-md'>
+              The Time is Right. The Place is Right. So come on down and join M&S for a round of
+              Price it Right!! Put on your shopping caps and showcase your pricing acumen in this
+              series of Daily Challenges. All you need to do is give us your best guess on our set
+              of products every day, and then hope to land on top of the leaderboard by the end of
+              the week to win some exciting prizes!
             </span>
           </div>
           <Link href='/play'>
