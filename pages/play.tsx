@@ -6,6 +6,7 @@ import NumberFormat from 'react-number-format';
 import { useGame } from '../context/game';
 import { GuessData, Product } from '../types';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 function between(value, first, last) {
   let lower = Math.min(first, last),
@@ -82,6 +83,29 @@ const PlayPage = () => {
         guess: parseFloat(guessedPrice.value.replace('£', '')),
       };
       const pc = pointCheck(newProduct.guess, newProduct.price);
+      if (pc === 100) {
+        toast.success('Impressive. That was exact!', {
+          position: 'bottom-center',
+          autoClose: 1000,
+        });
+      } else if (pc === 60 || pc === 30) {
+        toast.success('That was close. Good job!', {
+          position: 'bottom-center',
+          autoClose: 1000,
+        });
+      } else {
+        if (newProduct.price > newProduct.guess) {
+          toast.error('Oops, your guess was too low. Keep trying', {
+            position: 'bottom-center',
+            autoClose: 1000,
+          });
+        } else {
+          toast.error('Oops, your guess was too high. Keep trying', {
+            position: 'bottom-center',
+            autoClose: 1000,
+          });
+        }
+      }
       setPoints({ ...points, [newProduct.id]: pc });
       const products = gameState.filter((el: Product) => el.id !== newProduct?.id ?? null);
       setGuessedPrice({ value: '' });

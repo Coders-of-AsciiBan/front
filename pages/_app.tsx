@@ -4,6 +4,8 @@ import { GameContext } from '../context/game';
 import '../styles/globals.css';
 import { GuessData, Product } from '../types';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const data = [
   {
@@ -93,6 +95,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div className='font-sahitya'>
         <Component {...pageProps} />
       </div>
+      <ToastContainer />
     </GameContext.Provider>
   );
 }
