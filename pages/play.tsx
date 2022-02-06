@@ -118,6 +118,7 @@ const PlayPage = () => {
             onValueChange={(values) => {
               const { formattedValue, value } = values;
               setGuessedPrice({ value: formattedValue });
+              document.getElementById('btn').focus();
             }}
             className='w-56 py-3  outline-none text-mnsSecondary rounded-3xl text-center font-bold text-4xl'
             thousandSeparator={true}
@@ -125,6 +126,7 @@ const PlayPage = () => {
           />
         </div>
         <button
+          id='btn'
           disabled={guessedPrice.value === '0' || guessedPrice.value === ''}
           onClick={() => sendGuessedPrice()}
           className={`${

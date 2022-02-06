@@ -10,22 +10,22 @@
 }
 
 .MuiLinearProgress-root {
-  width: 170px;
+  width: 170px !important;
 }
 
 .MuiLinearProgress-colorPrimary {
-  background-color: gray;
-  height: 30px;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  z-index: -1;
+  background-color: gray !important;
+  height: 30px !important;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  z-index: -1 !important;
 }
 
 .MuiLinearProgress-barColorPrimary {
-  background-color: #47c97b;
+  background-color: #47c97b !important;
 }
 .MuiLinearProgress-colorPrimary {
-  background-color: #cbc8c8;
+  background-color: #cbc8c8 !important;
 }
 
 label {
