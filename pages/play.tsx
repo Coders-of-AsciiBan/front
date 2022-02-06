@@ -38,10 +38,12 @@ const PlayPage = () => {
     if (!start) {
       if (Object.keys(gameState).length > 0) {
         console.log('start game');
+        setStart(true);
         const availableProducts = gameState.filter((dt: { guessed: boolean }) => !dt.guessed);
         if (availableProducts.length === 0) {
           setEndGame(true);
         } else {
+          console.log('setting product');
           setProduct(availableProducts[Math.floor(Math.random() * availableProducts.length)]);
         }
       }
@@ -57,26 +59,27 @@ const PlayPage = () => {
   }, [points]);
 
   useEffect(() => {
-    if (product) {
-      if (product.guessed) {
-        console.log('guess', product.guess, product.price);
-        const pc = pointCheck(product.guess, product.price);
-        console.log('check', pc);
-        setPoints({ ...points, [product.id]: pc });
-        const products = gameState.filter((el: Product) => el.id !== product?.id ?? null);
-        setGuessedPrice({ value: '0' });
-        setGameState([...products, product]);
-      }
-    }
-  }, [product, gameState, setGameState]);
+    console.log('product changed', product);
+  }, [product]);
 
   const sendGuessedPrice = () => {
     if (product) {
-      setProduct({
+      // setProduct({
+      //   ...product,
+      //   guessed: true,
+      //   guess: parseFloat(guessedPrice.value.replace('£', '')),
+      // });
+      const newProduct = {
         ...product,
         guessed: true,
         guess: parseFloat(guessedPrice.value.replace('£', '')),
-      });
+      };
+      const pc = pointCheck(newProduct.guess, newProduct.price);
+      setPoints({ ...points, [newProduct.id]: pc });
+      const products = gameState.filter((el: Product) => el.id !== newProduct?.id ?? null);
+      setGuessedPrice({ value: '' });
+      setGameState([...products, newProduct]);
+      setStart(false);
     }
   };
 
@@ -85,7 +88,8 @@ const PlayPage = () => {
   }, [guessedPrice]);
 
   const timeOut = () => {
-    console.log('timesup');
+    console.log('finished due to timeout');
+    sendGuessedPrice();
   };
   return (
     <div className='flex flex-col w-screen h-screen justify-start items-center p-2 overflow-hidden'>
@@ -106,21 +110,20 @@ const PlayPage = () => {
           />
         )}
       </div>
-      <div className='bg-grayBase flex flex-col p-5 items-center rounded-lg'>
-        <span className='my-4 font-extrabold text-2xl'>Guess The Price</span>
-        <div className='flex justify-center items-center'>
+      <div className='bg-grayBase flex flex-col py-4 px-8 items-center rounded-lg'>
+        <span className='my-2 font-extrabold text-4xl'>Guess The Price</span>
+        <div className='flex justify-center items-center my-2'>
           <NumberFormat
             value={guessedPrice.value === '0' ? '' : guessedPrice.value}
             onValueChange={(values) => {
               const { formattedValue, value } = values;
               setGuessedPrice({ value: formattedValue });
             }}
-            className='w-32 py-3 outline-none text-mnsSecondary rounded-2xl text-center font-bold text-4xl'
+            className='w-56 py-3  outline-none text-mnsSecondary rounded-3xl text-center font-bold text-4xl'
             thousandSeparator={true}
             prefix={'£'}
           />
         </div>
-
         <button
           disabled={guessedPrice.value === '0' || guessedPrice.value === ''}
           onClick={() => sendGuessedPrice()}
@@ -128,7 +131,7 @@ const PlayPage = () => {
             guessedPrice.value === '0' || guessedPrice.value === ''
               ? 'button-primary-disabled'
               : 'button-primary shadow-mnsSecondary shadow-md'
-          } my-4 font-extrabold `}
+          } my-2 font-bold`}
         >
           Next
         </button>

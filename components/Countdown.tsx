@@ -9,16 +9,15 @@ const Countdown = ({ timeOut, level }) => {
   const [seconds, setSeconds] = useState(10);
   const [isActive, setIsActive] = useState(true);
 
-  function toggle() {
-    setIsActive(!isActive);
-  }
-
   function reset() {
     setSeconds(10);
   }
 
   useEffect(() => {
+    console.log('resetting');
+    setIsActive(false);
     reset();
+    setIsActive(true);
   }, [gameState]);
 
   useEffect(() => {

@@ -57,6 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [points, setPoints] = useState({});
 
   useEffect(() => {
+    console.log('setting initial values');
     setGameState(
       data.map((dt: Product) => {
         return { ...dt, guessed: false, guess: 0 };
