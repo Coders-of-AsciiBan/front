@@ -8,16 +8,23 @@ import axios from 'axios';
 import { LeaderboardContext, useLeaderboard } from '../context/leaderboard';
 
 const Leaderboard = () => {
-  const [openDialog, setOpenDialog] = useState(true);
+  const [openDialog, setOpenDialog] = useState(false);
   const [leaders, setLeaders] = useState([]);
   const [user, setUser] = useState({ username: '', index: 0 });
+  const { gameState } = useGame();
+
+  useEffect(() => {
+    if (gameState.filter((el) => el.guessed).length === 5) {
+      setOpenDialog(true);
+    }
+  }, [gameState]);
 
   useEffect(() => {
     const fetchLeaders = async () => {
       const leaderboard = await axios({
         method: 'GET',
-        // url: 'https://bumblebee-hacktheburgh.herokuapp.com/leaderboard/',
-        url: 'http://localhost:4000/leaderboard/',
+        url: 'https://bumblebee-hacktheburgh.herokuapp.com/leaderboard/',
+        // url: 'http://localhost:4000/leaderboard/',
       });
       setLeaders(leaderboard.data.body);
     };
@@ -41,13 +48,15 @@ const Leaderboard = () => {
             return <Leader key={nanoid()} index={index} leader={ld} />;
           })}
         </div>
-        <div className='p-3 text-xl'>
-          <span>
-            Well done! You are currently placed{' '}
-            <span className='text-mnsSecondary font-bold'>{user.index + 1}</span>. Come back
-            tomorrow to increase your score
-          </span>
-        </div>
+        {gameState.filter((el) => el.guessed).length === 5 && (
+          <div className='p-3 text-xl'>
+            <span>
+              Well done! You are currently placed{' '}
+              <span className='text-mnsSecondary font-bold'>{user.index + 1}</span>. Come back
+              tomorrow to increase your score
+            </span>
+          </div>
+        )}
         <Dialog open={openDialog} className='rounded-lg'>
           <UserForm setOpenDialog={setOpenDialog} />
         </Dialog>
