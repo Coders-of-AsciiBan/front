@@ -86,23 +86,23 @@ const PlayPage = () => {
       if (pc === 100) {
         toast.success('Impressive. That was exact!', {
           position: 'bottom-center',
-          autoClose: 1000,
+          autoClose: 2000,
         });
       } else if (pc === 60 || pc === 30) {
         toast.success('That was close. Good job!', {
           position: 'bottom-center',
-          autoClose: 1000,
+          autoClose: 2000,
         });
       } else {
         if (newProduct.price > newProduct.guess) {
           toast.error('Oops, your guess was too low. Keep trying', {
             position: 'bottom-center',
-            autoClose: 1000,
+            autoClose: 2000,
           });
         } else {
           toast.error('Oops, your guess was too high. Keep trying', {
             position: 'bottom-center',
-            autoClose: 1000,
+            autoClose: 2000,
           });
         }
       }
