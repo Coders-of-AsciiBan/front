@@ -133,6 +133,7 @@ const PlayPage = () => {
       <div className='my-4'>
         {product?.image && (
           <Image
+            priority
             className='rounded-2xl'
             src={product?.image ?? ''}
             alt='play image'

@@ -8,12 +8,18 @@ const Home: NextPage = () => {
       <div className='relative z-30 px-5 py-3 text-2xl text-white bg-gray-900 h-full bg-opacity-50'>
         <div className='flex flex-col items-center justify-start h-full'>
           <div className='my-2'>
-            <Image src='/media/logo_w.png' alt='m&s Logo' width={100} height={59} />
+            <Image priority src='/media/logo_w.png' alt='m&s Logo' width={100} height={59} />
           </div>
           <div className='my-3 flex items-center justify-center'>
-            <Image src='/media/shopping-bags.png' alt='shopping bags' width={60} height={42} />
+            <Image
+              priority
+              src='/media/shopping-bags.png'
+              alt='shopping bags'
+              width={60}
+              height={42}
+            />
             <span className='mx-2 font-bold text-white text-3xl'>Price It Right</span>
-            <Image src='/media/goodies.png' alt='shopping bags' width={60} height={42} />
+            <Image priority src='/media/goodies.png' alt='shopping bags' width={60} height={42} />
           </div>
           <div className='bg-gray-600 bg-opacity-90 p-4 text-center rounded-lg my-4'>
             <span className='opacity-100 text-white text-lc'>

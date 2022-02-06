@@ -41,7 +41,7 @@ const Leaderboard = () => {
     <LeaderboardContext.Provider value={{ leaders, setLeaders, user, setUser }}>
       <div className='p-4'>
         <div className='m-4 flex justify-around items-center'>
-          <Image src='/media/congrats.png' alt='congratulations' width={75} height={74} />
+          <Image priority src='/media/congrats.png' alt='congratulations' width={75} height={74} />
           <span className='text-4xl font-bold'>Leaderboard</span>
         </div>
         <div className='my-4 border  b-2 border-black rounded-lg bg-lighterGreen'>
@@ -95,6 +95,7 @@ const Products = () => {
           <a href={product.url} target='_blank' rel='noreferrer'>
             <div className='flex flex-col items-center border-2 border-mnsSecondary shadow-lg my-2 rounded-lg mx-10 p-4'>
               <Image
+                priority
                 className='rounded-lg'
                 src={product.image}
                 alt='product image'
@@ -160,7 +161,9 @@ const LeaderBadge = ({ index }) => {
   }, [index]);
 
   if (index <= 2) {
-    return <div>{image !== '' && <Image src={image} alt='medal' width={39} height={67} />}</div>;
+    return (
+      <div>{image !== '' && <Image priority src={image} alt='medal' width={39} height={67} />}</div>
+    );
   }
   return (
     <div className='w-10 flex justify-center text-4xl font-bold text-mnsSecondary'>{index + 1}</div>
@@ -209,9 +212,9 @@ const UserForm = ({ setOpenDialog }) => {
       <form ref={form} onChange={updateFormData} onSubmit={submitForm}>
         <div className='flex flex-col items-center'>
           <div className='flex items-center my-4'>
-            <Image src='/media/gift.png' alt='gift' height={70} width={70} />
+            <Image priority src='/media/gift.png' alt='gift' height={70} width={70} />
             <span className='font-bold text-3xl'>FINISHED</span>
-            <Image src='/media/gift.png' alt='gift' height={70} width={70} />
+            <Image priority src='/media/gift.png' alt='gift' height={70} width={70} />
           </div>
           <span>Enter your details to see yout result</span>
 
