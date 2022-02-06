@@ -11,7 +11,7 @@ import { LeaderboardContext, useLeaderboard } from '../context/leaderboard';
 const Leaderboard = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [leaders, setLeaders] = useState([]);
-  const [user, setUser] = useState({ username: '', index: 0 });
+  const [user, setUser] = useState({ username: '', index: -1 });
   const { gameState } = useGame();
 
   useEffect(() => {
@@ -49,10 +49,10 @@ const Leaderboard = () => {
             return <Leader key={nanoid()} index={index} leader={ld} />;
           })}
         </div>
-        {gameState.filter((el) => el.guessed).length === 5 && (
+        {gameState.filter((el) => el.guessed).length === 5 && user.index >= 0 && (
           <div className='p-3 text-xl'>
             <span>
-              Well done! You are currently placed{' '}
+              Well done! You are currently in place #{' '}
               <span className='text-mnsSecondary font-bold'>{user.index + 1}</span>. Come back
               tomorrow to increase your score
             </span>
@@ -93,7 +93,7 @@ const Products = () => {
 
         {product.id !== '' && (
           <a href={product.url} target='_blank' rel='noreferrer'>
-            <div className='flex flex-col items-center border border-2 border-mnsSecondary shadow-lg my-2 rounded-lg mx-10 p-4'>
+            <div className='flex flex-col items-center border-2 border-mnsSecondary shadow-lg my-2 rounded-lg mx-10 p-4'>
               <Image
                 className='rounded-lg'
                 src={product.image}
@@ -129,7 +129,10 @@ const Leader = ({ leader, index }) => {
 
   useEffect(() => {
     if (user.username === leader.username) {
-      setUser({ ...user, index });
+      console.log('user', user);
+      if (user.index === -1) {
+        setUser({ ...user, index });
+      }
     }
   }, [leader]);
   return (
@@ -171,9 +174,9 @@ const UserForm = ({ setOpenDialog }) => {
   const submitForm = async (e) => {
     e.preventDefault();
     console.log('formData', formData);
-    setUser({ username: formData.username });
+    setUser({ username: formData.username.replaceAll(' ', ''), index: -1 });
     const userData = {
-      userName: formData.username,
+      userName: formData.username.replaceAll(' ', ''),
       email: formData.email,
       submissionData: {
         score: total,
@@ -188,6 +191,7 @@ const UserForm = ({ setOpenDialog }) => {
     await axios({
       method: 'POST',
       url: 'https://bumblebee-hacktheburgh.herokuapp.com/gameScore/',
+      // url: 'http://localhost:4000/gameScore/',
       data: userData,
       headers: { 'Content-Type': 'application/json' },
     });

@@ -63,6 +63,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       const game = await axios({
         method: 'GET',
         url: 'https://bumblebee-hacktheburgh.herokuapp.com/game',
+        // url: 'http://localhost:4000/game',
       });
       console.log(game);
       setGameState(
