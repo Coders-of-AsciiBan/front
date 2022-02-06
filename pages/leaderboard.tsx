@@ -205,13 +205,14 @@ const UserForm = ({ setOpenDialog }) => {
     setOpenDialog(false);
   };
   return (
-    <div className='bg-gray-300 p-6'>
-      <div className='test'>
-        <Image src='/media/gift.png' alt='gift' height={196} width={196} />
-      </div>
+    <div className='bg-gray-300 p-5'>
       <form ref={form} onChange={updateFormData} onSubmit={submitForm}>
-        <div className='mt-20 flex flex-col items-center p-4'>
-          <span className='font-bold text-3xl'>FINISHED</span>
+        <div className='flex flex-col items-center'>
+          <div className='flex items-center my-4'>
+            <Image src='/media/gift.png' alt='gift' height={70} width={70} />
+            <span className='font-bold text-3xl'>FINISHED</span>
+            <Image src='/media/gift.png' alt='gift' height={70} width={70} />
+          </div>
           <span>Enter your details to see yout result</span>
           <label>
             <span>Username</span>

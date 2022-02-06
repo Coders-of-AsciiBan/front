@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 const Home: NextPage = () => {
   return (
-    <header className='relative flex items-center justify-center h-screen overflow-hidden'>
+    <main className='relative flex items-center justify-center h-screen overflow-y-scroll overflow-x-hidden'>
       <div className='relative z-30 p-5 text-2xl text-white bg-gray-900 h-full bg-opacity-50'>
         <div className='flex flex-col items-center justify-center h-full'>
           <div className='my-2'>
@@ -33,7 +33,7 @@ const Home: NextPage = () => {
         <source src='/media/M&S_landing_background.mp4' type='video/mp4' />
         Your browser does not support the video tag.
       </video>
-    </header>
+    </main>
   );
 };
 

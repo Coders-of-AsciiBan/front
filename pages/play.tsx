@@ -99,7 +99,7 @@ const PlayPage = () => {
     sendGuessedPrice();
   };
   return (
-    <div className='flex flex-col w-screen h-screen justify-start items-center p-2 overflow-hidden'>
+    <div className='flex flex-col w-screen h-screen justify-start items-center p-2 overflow-y-scroll overflow-x-hidden'>
       <Navbar timeOut={timeOut} level={level} />
       <div className='w-full px-2 my-3'>
         <div className='bg-gray-300  text-center font-bold text-2xl w-full py-2 rounded-lg shadow-gray-900 shadow-md'>
@@ -112,8 +112,8 @@ const PlayPage = () => {
             className='rounded-2xl'
             src={product?.image ?? ''}
             alt='play image'
-            width={200}
-            height={259}
+            width={190}
+            height={246}
           />
         )}
       </div>
