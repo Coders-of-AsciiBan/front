@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Dialog } from '@mui/material';
 import Image from 'next/image';
@@ -57,6 +58,7 @@ const Leaderboard = () => {
             </span>
           </div>
         )}
+        <Products />
         <Dialog open={openDialog} className='rounded-lg'>
           <UserForm setOpenDialog={setOpenDialog} />
         </Dialog>
@@ -65,12 +67,67 @@ const Leaderboard = () => {
   );
 };
 
+const Products = () => {
+  const { gameState } = useGame();
+  const [product, setProduct] = useState({ id: '', image: '', name: '', price: 0, url: '' });
+  const [counter, setCounter] = useState(0);
+  useEffect(() => {
+    if (gameState.length > 0 && counter >= 0) {
+      setProduct(gameState[counter]);
+    }
+  }, [gameState, counter]);
+
+  return (
+    <div className='flex flex-col items-center'>
+      <span className='font-bold text-2xl my-4'>Products you may like</span>
+      <div className='flex w-full justify-center items-center'>
+        {counter > 0 && (
+          <div
+            onClick={() => {
+              setCounter(counter - 1);
+            }}
+          >
+            <i className='fas fa-chevron-left' />
+          </div>
+        )}
+
+        {product.id !== '' && (
+          <a href={product.url} target='_blank' rel='noreferrer'>
+            <div className='flex flex-col items-center border border-2 border-mnsSecondary shadow-lg my-2 rounded-lg mx-10 p-4'>
+              <Image
+                className='rounded-lg'
+                src={product.image}
+                alt='product image'
+                width={200}
+                height={259}
+              />
+              <div className='flex w-full justify-around items-center my-2'>
+                <span className='font-bold text-xl mx-2'>{product.name}</span>
+                <span className='text-mnsSecondary text-xl'>£{product.price}</span>
+              </div>
+            </div>
+          </a>
+        )}
+
+        {counter < 4 && (
+          <div
+            onClick={() => {
+              setCounter(counter + 1);
+            }}
+          >
+            <i className='fas fa-chevron-right' />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const Leader = ({ leader, index }) => {
   console.log('leader', leader);
   const { user, setUser } = useLeaderboard();
 
   useEffect(() => {
-    console.log('compare', user, leader);
     if (user.username === leader.username) {
       setUser({ ...user, index });
     }
